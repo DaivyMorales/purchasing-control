@@ -15,7 +15,7 @@ async function importData() {
     "C:\\Users\\daivy\\OneDrive\\Escritorio\\purchasing-control\\src\\utils\\file.xlsx"
   );
 
-  const worksheet = workbook.Sheets["Sheet1"];
+  const worksheet = workbook.Sheets["Hoja1"];
   const data = xlsx.utils.sheet_to_json<ExcelData>(worksheet);
 
   const insertedData = await Predict.insertMany(data);

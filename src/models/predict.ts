@@ -1,17 +1,34 @@
 import { Schema, model, models } from "mongoose";
 
 type SchemaPredict = {
-  inventory_balance: number;
-  month_consumption: number;
+  CODIGO: string;
+  DESCRIPCION: string;
+  MINIMOS: number;
+  MAXIMOS: number;
+  CONSUMO_MES: number;
 };
 
 const predictSchema = new Schema<SchemaPredict>(
   {
-    inventory_balance: {
+    CODIGO: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    DESCRIPCION: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    MINIMOS: {
       type: Number,
       required: true,
     },
-    month_consumption: {
+    MAXIMOS: {
+      type: Number,
+      required: true,
+    },
+    CONSUMO_MES: {
       type: Number,
       required: true,
     },
