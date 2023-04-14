@@ -1,7 +1,7 @@
 import * as xlsx from "xlsx";
 import mongoose from "mongoose";
 import { dbConnect } from "./database";
-import Predict from "../models/predict";
+import Inventory from "../models/inventory";
 
 interface ExcelData {
   inventory_balance: number;
@@ -15,10 +15,10 @@ async function importData() {
     "C:\\Users\\daivy\\OneDrive\\Escritorio\\purchasing-control\\src\\utils\\file.xlsx"
   );
 
-  const worksheet = workbook.Sheets["Hoja1"];
+  const worksheet = workbook.Sheets["Sheet1"];
   const data = xlsx.utils.sheet_to_json<ExcelData>(worksheet);
 
-  const insertedData = await Predict.insertMany(data);
+  const insertedData = await Inventory.insertMany(data);
 
   return insertedData;
 }
