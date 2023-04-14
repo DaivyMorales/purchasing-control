@@ -12,7 +12,11 @@ interface IInventory {
   updatedAt: string;
 }
 
-export default function InventoryCard({ info }: IInventory) {
+interface EntryCardProps {
+  info: IInventory;
+}
+
+export default function InventoryCard({ info }: EntryCardProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
 
   const [fieldSelected, setFieldSelected] = useState<boolean>(false);
@@ -23,7 +27,7 @@ export default function InventoryCard({ info }: IInventory) {
   };
 
   return (
-    <tr className="bg-white  border-1 border-gray-100 ">
+    <tr className="bg-white  border-1 border-gray-100 " key={info._id}>
       <th
         scope="row"
         className="px-2 py-1 text-black font-medium whitespace-nowrap "
@@ -39,7 +43,7 @@ export default function InventoryCard({ info }: IInventory) {
         onClick={() => setFieldChoose(info._id)}
       >
         {fieldChoose === info._id ? (
-          <input type="number" className="fieldInput"/>
+          <input type="number" className="fieldInput" />
         ) : (
           info.CANTIDAD_CONTADA
         )}

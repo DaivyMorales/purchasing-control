@@ -4,17 +4,9 @@ import InventoryCard from "@/components/InventoryCard";
 import { cardContext } from "@/context/CardContext";
 
 interface MyProps {
-  data: {
-    PRODUCTO: string;
-    NOMBRE: string;
-    LOTE: string;
-    CANTIDAD: number;
-    CANTIDAD_CONTADA: number;
-    _id: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  data: IInventory[];
 }
+
 
 interface IInventory {
   PRODUCTO: string;
@@ -27,16 +19,6 @@ interface IInventory {
   updatedAt: string;
 }
 
-interface Info {
-  PRODUCTO: string;
-  NOMBRE: string;
-  LOTE: string;
-  CANTIDAD: number;
-  CANTIDAD_CONTADA: number;
-  _id: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export default function index({ data }: MyProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
@@ -82,8 +64,8 @@ export default function index({ data }: MyProps) {
             </tr>
           </thead>
           <tbody>
-            {information.map((info: Info) => (
-              <InventoryCard key={info._id} info={info} />
+            {information.map((info: IInventory) => (
+              <InventoryCard info={info} />
             ))}
           </tbody>
         </table>
