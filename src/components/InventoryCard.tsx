@@ -1,6 +1,13 @@
 import { cardContext } from "@/context/CardContext";
 import { inventoryContext } from "@/context/InventoryContext";
-import React, { useContext, useState, ChangeEvent, FormEvent } from "react";
+import React, {
+  useContext,
+  useState,
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+} from "react";
+import axios from "axios";
 
 interface IInventory {
   PRODUCTO: string;
@@ -24,6 +31,25 @@ export default function InventoryCard({ info }: EntryCardProps) {
   const [counter, setCounter] = useState<object>({
     CANTIDAD_CONTADA: 0,
   });
+
+  const [productFound, setProductFound] = useState({
+    PRESENTACION: 0,
+  });
+  // console.log(productFound[0]);
+
+  const getProduct = async (producto: string) => {
+    const response = await axios.get(
+      `http://localhost:3000/api/products/${producto}`
+    );
+    // setProductFound({
+    //   PRESENTACION: response.data.PRESENTACION
+    // });
+    setProductFound(response.data[0]);
+  };
+
+  useEffect(() => {
+    getProduct(info.PRODUCTO);
+  }, []);
 
   const TOTAL = info.CANTIDAD * info.CANTIDAD_CONTADA;
 
@@ -52,9 +78,10 @@ export default function InventoryCard({ info }: EntryCardProps) {
       >
         {info.PRODUCTO}
       </th>
+      <td className="px-2 py-2 ">{info.NOMBRE}</td>
+      <td className="px-2 py-2 ">{productFound.PRESENTACION}</td>
       <td className="px-2 py-2 ">{info.LOTE}</td>
       <td className="px-2 py-2 ">{info.CANTIDAD}</td>
-      <td className="px-2 py-2 ">{info.NOMBRE}</td>
       <td
         className="px-2 py-2 "
         style={fieldChoose === info._id ? fieldCheck : {}}
@@ -78,9 +105,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
         )}
       </td>
       <td className="px-2 py-2 ">{TOTAL}</td>
-      <td className="px-2 py-2  text-red-400">
-        {TOTAL - info.CANTIDAD}
-      </td>
+      <td className="px-2 py-2  text-red-400">{TOTAL - info.CANTIDAD}</td>
     </tr>
   );
 }

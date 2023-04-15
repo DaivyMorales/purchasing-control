@@ -7,7 +7,6 @@ interface MyProps {
   data: IInventory[];
 }
 
-
 interface IInventory {
   PRODUCTO: string;
   NOMBRE: string;
@@ -18,7 +17,6 @@ interface IInventory {
   createdAt: string;
   updatedAt: string;
 }
-
 
 export default function index({ data }: MyProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
@@ -42,14 +40,17 @@ export default function index({ data }: MyProps) {
               <th scope="col" className="px-2 py-2 rounded-ss-lg">
                 Producto
               </th>
+              <th scope="col" className="px-2 py-2">
+                Nombre
+              </th>
+              <th scope="col" className="px-2 py-2">
+                Presentacion
+              </th>
               <th scope="col" className="px-2 py-2 ">
                 Lote
               </th>
               <th scope="col" className="px-2 py-2 ">
                 Cantidad
-              </th>
-              <th scope="col" className="px-2 py-2">
-                Nombre
               </th>
 
               <th scope="col" className="px-2 py-2 ">

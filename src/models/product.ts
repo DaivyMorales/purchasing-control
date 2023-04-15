@@ -27,5 +27,5 @@ const productSchema = new Schema<SchemaProduct>(
   }
 );
 
-export default models.Inventory ||
+export default models.Product ||
   model<SchemaProduct>("Product", productSchema);
