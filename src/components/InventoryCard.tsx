@@ -48,15 +48,15 @@ export default function InventoryCard({ info }: EntryCardProps) {
     <tr className="bg-white border-b border-gray-100   ">
       <th
         scope="row"
-        className="px-2 py-1 text-black font-medium whitespace-nowrap "
+        className="px-2 py-2 text-black font-medium whitespace-nowrap "
       >
         {info.PRODUCTO}
       </th>
-      <td className="px-2 py-1 ">{info.LOTE}</td>
-      <td className="px-2 py-1 ">{info.CANTIDAD}</td>
-      <td className="px-2 py-1 ">{info.NOMBRE}</td>
+      <td className="px-2 py-2 ">{info.LOTE}</td>
+      <td className="px-2 py-2 ">{info.CANTIDAD}</td>
+      <td className="px-2 py-2 ">{info.NOMBRE}</td>
       <td
-        className="px-2 py-1 "
+        className="px-2 py-2 "
         style={fieldChoose === info._id ? fieldCheck : {}}
         onClick={() => setFieldChoose(info._id)}
       >
@@ -77,8 +77,8 @@ export default function InventoryCard({ info }: EntryCardProps) {
           info.CANTIDAD_CONTADA
         )}
       </td>
-      <td className="px-2 py-1 ">{TOTAL}</td>
-      <td className="px-2 py-1  text-red-400">
+      <td className="px-2 py-2 ">{TOTAL}</td>
+      <td className="px-2 py-2  text-red-400">
         {TOTAL - info.CANTIDAD}
       </td>
     </tr>
