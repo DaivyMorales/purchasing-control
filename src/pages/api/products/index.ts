@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "../../../utils/database";
-import importData from "../../../utils/importData";
-import Predict from "../../../models/predict";
+import Product from "../../../models/product";
 
 export default async function indexPredict(
   req: NextApiRequest,
@@ -13,8 +12,8 @@ export default async function indexPredict(
   switch (method) {
     case "GET":
       try {
-        const entry = await Predict.find();
-        return res.status(200).json(entry);
+        const product = await Product.find();
+        return res.status(200).json(product);
       } catch (error) {
         if (error instanceof Error) {
           res.status(500).json({ error: error.message });
@@ -26,9 +25,17 @@ export default async function indexPredict(
 
     case "POST":
       try {
-        const insertedData = await importData();
+        const { PRODUCTO, NOMBRE, PRESENTACION } = body;
 
-        return res.status(200).json(insertedData);
+        const newProduct = new Product({
+          PRODUCTO,
+          NOMBRE,
+          PRESENTACION,
+        });
+
+        const productSaved = await newProduct.save();
+
+        return res.status(200).json(productSaved);
       } catch (error) {
         if (error instanceof Error) {
           res.status(500).json({ error: error.message });
