@@ -18,3 +18,7 @@
         -moz-appearance: textfield;
     }
 }
+
+button {
+    @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-lg hover:bg-purple-500;
+}
