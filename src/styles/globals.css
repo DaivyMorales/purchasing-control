@@ -26,6 +26,10 @@
     rgb(var(--background-start-rgb));
 } */
 
+body {
+  font-family: "Inter", sans-serif;
+}
+
 h1 {
   @apply text-5xl font-semibold;
 }
@@ -48,5 +52,4 @@ h6 {
 
 .border-1 {
   border-width: 1px;
-
 }
