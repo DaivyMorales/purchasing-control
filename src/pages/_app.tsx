@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { CardContextProvider } from "../context/CardContext";
 import { InventoryContextProvider } from "../context/InventoryContext";
 import { AlertContextProvider } from "../context/AlertContext";
+import { ProductContextProvider } from "../context/ProductContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,14 +15,16 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AlertContextProvider>
-      <InventoryContextProvider>
-        <CardContextProvider>
-          {/* <main className={inter.className}> */}{" "}
-          <Component {...pageProps} />
-          {/* </main>k */}
-        </CardContextProvider>
-      </InventoryContextProvider>
-    </AlertContextProvider>
+    <ProductContextProvider>
+      <AlertContextProvider>
+        <InventoryContextProvider>
+          <CardContextProvider>
+            {/* <main className={inter.className}> */}{" "}
+            <Component {...pageProps} />
+            {/* </main>k */}
+          </CardContextProvider>
+        </InventoryContextProvider>
+      </AlertContextProvider>
+    </ProductContextProvider>
   );
 }

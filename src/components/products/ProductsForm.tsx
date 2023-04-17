@@ -2,7 +2,7 @@ import { alertContext } from "@/context/AlertContext";
 import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
-import axios from "axios";
+import { productContext } from "@/context/ProductContext";
 
 interface IProductSchema {
   PRODUCTO: string;
@@ -12,6 +12,7 @@ interface IProductSchema {
 
 export default function ProductsForm() {
   const { showAlert, setShowAlert } = useContext(alertContext);
+  const { products, setProducts, createProduct } = useContext(productContext);
 
   const [product, setProduct] = useState<IProductSchema>({
     PRODUCTO: "",
@@ -19,14 +20,11 @@ export default function ProductsForm() {
     PRESENTACION: 0,
   });
 
-  const createProduct = (values: object | undefined) => {
-    const response = axios.post("http://localhost:3000/api/products", values);
-  };
-
   const formik = useFormik({
     initialValues: { product },
     onSubmit: (values, { resetForm }) => {
       console.log(values);
+      createProduct(values);
       resetForm();
     },
   });
@@ -40,7 +38,7 @@ export default function ProductsForm() {
     >
       <h2>Crear producto</h2>
       <form onSubmit={formik.handleSubmit}>
-        <div className="flex flex-col gap-y-3">
+        <div className="flex flex-col gap-y-3 ">
           <div className="flex flex-col gap-y-1">
             <label htmlFor="PRODUCTO">Producto</label>
             <input

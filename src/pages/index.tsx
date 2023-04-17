@@ -30,10 +30,11 @@ export default function index({ data }: MyProps) {
 
   return (
     <div
-      className="  mx-auto flex justify-center items-center"
+      className="  mx-auto flex justify-center items-center "
       // onClick={() => setFieldChoose()}
     >
-      <div className="relative overflow-x-auto my-20 sm:rounded-lg  border-1 border-gray-100">
+      
+      <div className="relative overflow-x-auto my-20 sm:rounded-lg  border-1 border-gray-100 ">
         <table className="w-full text-xs text-left text-gray-500 rounded-t-xl ">
           <thead className="text-xs text-gray-800  py-4 font-normal  rounded-t-xl">
             <tr className="border-b font-normal text-xs border-gray-100">

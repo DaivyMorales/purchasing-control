@@ -24,7 +24,7 @@ button {
 }
 
 button {
-    @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-lg hover:bg-purple-500;
+    @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-xl shadow-lg shadow-purple-300 hover:bg-purple-500;
 }
 
 .buttonSubmit {
@@ -43,7 +43,30 @@ button {
     @apply p-10 bg-white flex flex-col justify-start items-start border-gray-400;
 }
 
-.inputForm{
+.inputForm {
     border-width: 1px;
-    @apply border-gray-400 
+    @apply border-gray-400;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+
+    .gradientDiv {
+        height: 50vh;
+        background-image: linear-gradient(to left, #d8e1ff, #f4d6fa, white);
+        border: none;
+        /* elimina los bordes */
+        box-shadow: none;
+        /* elimina la sombra */
+
+    }
+
+    // .contenido {
+    //     height: 75vh;
+    //     /* establece la altura del resto de la página */
+    //     background-color: #fff;
+    //     /* establece el color de fondo blanco */
+    // }
 }
