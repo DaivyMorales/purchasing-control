@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import axios from "axios";
 
-
 interface IInventory {
   PRODUCTO: string;
   NOMBRE: string;
@@ -33,19 +32,17 @@ export default function InventoryCard({ info }: EntryCardProps) {
     CANTIDAD_CONTADA: 0,
   });
 
-  const [productFound, setProductFound] = useState({
-    PRESENTACION: 0,
-  });
-  // console.log(productFound[0]);
+  const [presentation, setPresentation] = useState(0);
+  console.log(presentation);
 
   const getProduct = async (producto: string) => {
     const response = await axios.get(
       `http://localhost:3000/api/products/${producto}`
     );
-    // setProductFound({
+    // setpresentation({
     //   PRESENTACION: response.data.PRESENTACION
     // });
-    setProductFound(response.data[0]);
+    setPresentation(response.data[0].PRESENTACION);
   };
 
   useEffect(() => {
@@ -80,7 +77,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
         {info.PRODUCTO}
       </th>
       <td className="px-2 py-2 ">{info.NOMBRE}</td>
-      {/* <td className="px-2 py-2 ">{productFound.PRESENTACION}</td> */}
+      <td className="px-2 py-2 ">{presentation}</td>
       <td className="px-2 py-2 ">{info.LOTE}</td>
       <td className="px-2 py-2 ">{info.CANTIDAD}</td>
       <td

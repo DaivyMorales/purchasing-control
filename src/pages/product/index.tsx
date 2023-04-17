@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { GetServerSidePropsContext } from "next";
 import { MdOutlineAdd } from "react-icons/md";
+import { BiArrowBack } from "react-icons/bi";
 import ProductsForm from "@/components/products/ProductsForm";
 import { alertContext } from "@/context/AlertContext";
 import { productContext } from "@/context/ProductContext";
 import CardProduct from "@/components/products/CardProduct";
+import { useRouter } from "next/router";
 
 interface MyProps {
   data: IProduct[];
@@ -29,12 +31,22 @@ export default function HomeProduct({ data }: MyProps) {
     setProducts(data);
   }, []);
 
+  const router = useRouter();
+
   return (
     <div>
       <div className={` blur-${showAlert ? "sm" : "none"} `}>
-        <div className="gradientDiv "></div>
+        <div className="gradientDiv ">
+          <div
+            className="text-purple-700 flex justify-start px-4 py-3 items-center gap-x-1 cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            <BiArrowBack size={18} />
+            <h4 className="text-purple-700 text-sm ">Volver</h4>
+          </div>
+        </div>
         <div className=" flex flex-col justify-center items-center shadow-lg    ">
-          <div className="container mt-42 -mt-52 mx-auto px-10 flex flex-col gap-y-6 mb-10">
+          <div className="container mt-42 -mt-52 mx-auto  px-44 flex flex-col gap-y-6 mb-10">
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de productos</h1>
               <p>
@@ -78,7 +90,7 @@ export default function HomeProduct({ data }: MyProps) {
                     </th>
                   </tr>
                 </thead>
-                <tbody >
+                <tbody>
                   {products.map((product, index) => (
                     <CardProduct
                       product={product}

@@ -69,6 +69,15 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
         `http://localhost:3000/api/products/${producto}`,
         body
       );
+      setProducts(
+        products.map((product) => {
+          if (product.PRODUCTO === producto) {
+            return response.data;
+          } else {
+            return product;
+          }
+        })
+      );
     } catch (error) {
       console.log(error);
     }

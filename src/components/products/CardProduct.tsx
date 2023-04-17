@@ -37,12 +37,17 @@ export default function CardProduct({ product, index }: CardProductProps) {
     PRESENTACION: product.PRESENTACION,
   });
 
+  console.log(productSchema);
   const formik = useFormik({
     initialValues: { productSchema },
     onSubmit: (values) => {
-      console.log(values.productSchema);
+      // console.log(values.productSchema);
       updateProduct(product.PRODUCTO, values.productSchema);
+      setProductSchema(values.productSchema);
+
+      setProductChoose("n");
     },
+
     enableReinitialize: true,
   });
 
