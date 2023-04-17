@@ -9,6 +9,9 @@ interface IProducts {
   PRODUCTO: string;
   NOMBRE: string;
   PRESENTACION: number;
+  _id: string;
+  createdAt: string;
+  updateAt: string;
 }
 
 interface IContext {

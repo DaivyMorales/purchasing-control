@@ -7,6 +7,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import ProductsForm from "@/components/products/ProductsForm";
 import { alertContext } from "@/context/AlertContext";
+import { productContext } from "@/context/ProductContext";
 
 interface MyProps {
   data: IProduct[];
@@ -18,13 +19,12 @@ interface IProduct {
   PRESENTACION: number;
   _id: string;
   createdAt: string;
-  updatedAt: string;
+  updateAt: string;
 }
 
 export default function HomeProduct({ data }: MyProps) {
-  const [products, setProducts] = useState<IProduct[]>([]);
-
   const { showAlert, setShowAlert } = useContext(alertContext);
+  const { products, setProducts } = useContext(productContext);
 
   console.log(products);
 
@@ -41,9 +41,7 @@ export default function HomeProduct({ data }: MyProps) {
 
   return (
     <div>
-      <div
-        className={` blur-${showAlert ? "sm" : "none"} `}
-      >
+      <div className={` blur-${showAlert ? "sm" : "none"} `}>
         <div className="gradientDiv "></div>
         <div className=" flex flex-col justify-center items-center shadow-lg  ">
           <div className="container mt-42 -mt-52 mx-auto px-10 flex flex-col gap-y-6">

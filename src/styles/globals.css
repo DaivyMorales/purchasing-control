@@ -62,3 +62,12 @@ h6 {
 p {
   @apply text-sm font-normal;
 }
+
+input {
+  border-width: 1px;
+  @apply text-sm p-2 rounded-md border-gray-100;
+}
+
+label {
+  @apply text-sm font-semibold text-gray-600;
+}

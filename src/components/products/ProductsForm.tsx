@@ -26,6 +26,7 @@ export default function ProductsForm() {
       console.log(values);
       createProduct(values);
       resetForm();
+      setShowAlert(!showAlert);
     },
   });
 
@@ -36,7 +37,7 @@ export default function ProductsForm() {
       className="alertBox "
       style={showAlert ? { visibility: "visible" } : { visibility: "hidden" }}
     >
-      <h2>Crear producto</h2>
+      <h3 className="font-bold">Crear producto</h3>
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col gap-y-3 ">
           <div className="flex flex-col gap-y-1">
@@ -74,6 +75,12 @@ export default function ProductsForm() {
           </button>
         </div>
       </form>
+      <button
+        onClick={() => setShowAlert(!showAlert)}
+        className="w-full border-2 bg-white shadow text-slate-500 border-slate-500 font-bold hover:bg-white hover:text-slate-800 hover:border-slate-800"
+      >
+        Cancelar
+      </button>
     </motion.div>
   );
 }
