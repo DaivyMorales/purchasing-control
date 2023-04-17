@@ -40,7 +40,7 @@ button {
     transform: translate(-50%, -50%);
     z-index: 9999;
     border-width: 1px;
-    @apply p-10 bg-white flex flex-col gap-y-2 justify-start items-start shadow-lg  border-2;
+    @apply p-10 bg-white flex flex-col gap-y-2 justify-start items-start shadow-lg border-2;
 }
 
 .inputForm {
@@ -69,4 +69,67 @@ body {
     //     background-color: #fff;
     //     /* establece el color de fondo blanco */
     // }
+}
+
+.inputEdit {
+    @apply bg-gray-100 text-xs w-10;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    // Estilos específicos para webkit
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    // Estilos específicos para Firefox
+    &::-moz-number-spin-box {
+        -moz-appearance: textfield;
+    }
+}
+
+.inputNombre {
+    @apply bg-gray-100 text-xs w-56;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    // Estilos específicos para webkit
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    // Estilos específicos para Firefox
+    &::-moz-number-spin-box {
+        -moz-appearance: textfield;
+    }
+}
+
+.inputProducto {
+    @apply bg-gray-100 text-xs w-20;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    // Estilos específicos para webkit
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    // Estilos específicos para Firefox
+    &::-moz-number-spin-box {
+        -moz-appearance: textfield;
+    }
 }

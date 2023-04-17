@@ -1,13 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { GetServerSidePropsContext } from "next";
 import { MdOutlineAdd } from "react-icons/md";
-import { FiEdit3 } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
-import axios from "axios";
-import { motion } from "framer-motion";
 import ProductsForm from "@/components/products/ProductsForm";
 import { alertContext } from "@/context/AlertContext";
 import { productContext } from "@/context/ProductContext";
+import CardProduct from "@/components/products/CardProduct";
 
 interface MyProps {
   data: IProduct[];
@@ -24,16 +21,9 @@ interface IProduct {
 
 export default function HomeProduct({ data }: MyProps) {
   const { showAlert, setShowAlert } = useContext(alertContext);
-  const { products, setProducts } = useContext(productContext);
+  const { products, setProducts, deleteProduct } = useContext(productContext);
 
   console.log(products);
-
-  const deleteProduct = async (product: string) => {
-    console.log(product);
-    const response = await axios.delete(
-      `http://localhost:3000/api/products/${product}`
-    );
-  };
 
   useEffect(() => {
     setProducts(data);
@@ -43,8 +33,8 @@ export default function HomeProduct({ data }: MyProps) {
     <div>
       <div className={` blur-${showAlert ? "sm" : "none"} `}>
         <div className="gradientDiv "></div>
-        <div className=" flex flex-col justify-center items-center shadow-lg  ">
-          <div className="container mt-42 -mt-52 mx-auto px-10 flex flex-col gap-y-6">
+        <div className=" flex flex-col justify-center items-center shadow-lg    ">
+          <div className="container mt-42 -mt-52 mx-auto px-10 flex flex-col gap-y-6 mb-10">
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de productos</h1>
               <p>
@@ -88,38 +78,13 @@ export default function HomeProduct({ data }: MyProps) {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                   {products.map((product, index) => (
-                    <tr className="bg-white text-xs " key={product._id}>
-                      <td className="py-2 px-2 flex justify-center">
-                        <div className="text-2xs py-1 px-2 bg-purple-100 rounded-full font-bold text-purple-700">
-                          {index}
-                        </div>
-                      </td>
-                      <th
-                        scope="row"
-                        className="py-2 px-2 font-bold text-gray-900 whitespace-nowrap "
-                      >
-                        {product.PRODUCTO}
-                      </th>
-                      <td className="py-2 px-2">{product.NOMBRE}</td>
-                      <td className="py-2 px-2">{product.PRESENTACION}</td>
-                      <td className="py-2 px-2  flex gap-x-2">
-                        <motion.div
-                          className=""
-                          initial={{ opacity: 0, scale: 0.6 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                        >
-                          <FiEdit3 size={18} />
-                        </motion.div>
-                        <AiOutlineDelete
-                          size={18}
-                          onClick={() => {
-                            deleteProduct(product.PRODUCTO);
-                          }}
-                        />
-                      </td>
-                    </tr>
+                    <CardProduct
+                      product={product}
+                      key={product._id}
+                      index={index}
+                    />
                   ))}
                 </tbody>
               </table>

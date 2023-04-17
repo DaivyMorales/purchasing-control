@@ -25,20 +25,24 @@ export default async function idPredict(
 
       break;
 
-    // case "PUT":
-    //   try {
-    //     const predict = await Product.findOneAndUpdate(producto, body, {
-    //       new: true,
-    //     });
+    case "PUT":
+      try {
+        const product = await Product.findOneAndUpdate(
+          { PRODUCTO: producto },
+          body,
+          {
+            new: true,
+          }
+        );
 
-    //     if (!predict) return res.status(404).json("Predict not found");
+        if (!product) return res.status(404).json("Predict not found");
 
-    //     return res.status(200).json(predict);
-    //   } catch (error) {
-    //     res.status(500).json({ error });
-    //   }
+        return res.status(200).json(product);
+      } catch (error) {
+        res.status(500).json({ error });
+      }
 
-    //   break;
+      break;
 
     case "DELETE":
       try {
