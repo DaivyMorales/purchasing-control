@@ -22,3 +22,28 @@
 button {
     @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-lg hover:bg-purple-500;
 }
+
+button {
+    @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-lg hover:bg-purple-500;
+}
+
+.buttonSubmit {
+    @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-lg hover:bg-purple-500;
+}
+
+.alertBox {
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    border-width: 1px;
+    @apply p-10 bg-white flex flex-col justify-start items-start border-gray-400;
+}
+
+.inputForm{
+    border-width: 1px;
+    @apply border-gray-400 
+}

@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GetServerSidePropsContext } from "next";
 import { MdOutlineAdd } from "react-icons/md";
+import { FiEdit3 } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+import axios from "axios";
+import { motion } from "framer-motion";
+import ProductsForm from "@/components/products/ProductsForm";
+import { alertContext } from "@/context/AlertContext";
 
 interface MyProps {
   data: IProduct[];
@@ -17,7 +23,17 @@ interface IProduct {
 
 export default function HomeProduct({ data }: MyProps) {
   const [products, setProducts] = useState<IProduct[]>([]);
+
+  const { showAlert, setShowAlert } = useContext(alertContext);
+
   console.log(products);
+
+  const deleteProduct = async (product: string) => {
+    console.log(product);
+    const response = await axios.delete(
+      `http://localhost:3000/api/products/${product}`
+    );
+  };
 
   useEffect(() => {
     setProducts(data);
@@ -33,7 +49,7 @@ export default function HomeProduct({ data }: MyProps) {
           </div>
         </div>
         <div className="flex justify-end items-start ">
-          <button>
+          <button onClick={() => setShowAlert(!showAlert)}>
             <MdOutlineAdd size={15} />
             Crear nuevo
           </button>
@@ -53,13 +69,18 @@ export default function HomeProduct({ data }: MyProps) {
               <th scope="col" className="py-2">
                 Presentacion
               </th>
+              <th scope="col" className="py-2">
+                Acciones
+              </th>
             </tr>
           </thead>
           <tbody>
             {products.map((product, index) => (
               <tr className="bg-white text-xs " key={product._id}>
                 <td className="py-2 px-2 flex justify-center">
-                  <div className="text-2xs py-1 px-2 bg-purple-100 rounded-full font-bold text-purple-700">{index}</div>
+                  <div className="text-2xs py-1 px-2 bg-purple-100 rounded-full font-bold text-purple-700">
+                    {index}
+                  </div>
                 </td>
                 <th
                   scope="row"
@@ -69,11 +90,27 @@ export default function HomeProduct({ data }: MyProps) {
                 </th>
                 <td className="py-2 px-2">{product.NOMBRE}</td>
                 <td className="py-2 px-2">{product.PRESENTACION}</td>
+                <td className="py-2 px-2  flex gap-x-2">
+                  <motion.div
+                    className=""
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                  >
+                    <FiEdit3 size={18} />
+                  </motion.div>
+                  <AiOutlineDelete
+                    size={18}
+                    onClick={() => {
+                      deleteProduct(product.PRODUCTO);
+                    }}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <ProductsForm />
     </div>
   );
 }

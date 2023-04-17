@@ -11,8 +11,6 @@ export default async function idPredict(
     body,
   } = req;
 
-  // res.json(producto)
-
   switch (method) {
     case "GET":
       try {
@@ -29,7 +27,7 @@ export default async function idPredict(
 
     // case "PUT":
     //   try {
-    //     const predict = await Product.findByOneAndUpdate(id, body, {
+    //     const predict = await Product.findOneAndUpdate(producto, body, {
     //       new: true,
     //     });
 
@@ -42,21 +40,23 @@ export default async function idPredict(
 
     //   break;
 
-    // case "DELETE":
-    //   try {
-    //     const predict = await Product.findByIdAndRemove(id);
+    case "DELETE":
+      try {
+        const deletedProduct = await Product.findOneAndRemove({
+          PRODUCTO: producto,
+        });
 
-    //     if (!predict) return res.status(404).json("Predict not found");
+        if (!deletedProduct) return res.status(404).json("Product not found");
 
-    //     return res.status(200).json("Predict deleted successfully");
-    //   } catch (error) {
-    //     if (error instanceof Error) {
-    //       res.status(500).json({ error: error.message });
-    //     } else {
-    //       res.status(500).json({ error: "Ha ocurrido un error." });
-    //     }
-    //   }
-    //   break;
+        return res.status(200).json("Predict deleted successfully");
+      } catch (error) {
+        if (error instanceof Error) {
+          res.status(500).json({ error: error.message });
+        } else {
+          res.status(500).json({ error: "Ha ocurrido un error." });
+        }
+      }
+      break;
 
     default:
       res.status(400).json("Invalid method!");
