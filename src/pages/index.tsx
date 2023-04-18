@@ -2,9 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { GetServerSidePropsContext } from "next";
 import InventoryCard from "@/components/InventoryCard";
 import { MdOutlineAdd } from "react-icons/md";
+import { RiFileExcel2Fill } from "react-icons/ri";
 import { cardContext } from "@/context/CardContext";
 import * as xlsx from "xlsx";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { BiArrowToRight } from "react-icons/bi";
+
+
 
 interface MyProps {
   data: IInventory[];
@@ -71,12 +76,18 @@ export default function index({ data }: MyProps) {
     };
   };
 
+  const router = useRouter();
+
   return (
     <div>
       <div>
         <div className="gradientDiv ">
-          <div>
-            <input type="file" accept=".xlsx" onChange={handleFileUpload} />
+          <div
+            className="text-purple-700 flex justify-end px-4 py-3 items-center gap-x-1 cursor-pointer"
+            onClick={() => router.push("/product")}
+          >
+            <BiArrowToRight  size={18} />
+            <h4 className="text-purple-700 text-sm ">Ir a productos</h4>
           </div>
         </div>
         <div className=" flex flex-col justify-center items-center shadow-lg    ">
@@ -96,11 +107,20 @@ export default function index({ data }: MyProps) {
                   {information.length}
                 </div>
               </div>
-              <div className="flex justify-end items-start ">
-                <button>
-                  <MdOutlineAdd size={15} />
-                  Crear nuevo
-                </button>
+              <div className="flex justify-end items-start gap-x-3 ">
+                <div>
+                  <label className="buttonExcel">
+                    <RiFileExcel2Fill />
+                    Importar Excel
+                    <input
+                      className="hidden"
+                      type="file"
+                      accept=".xlsx"
+                      onChange={handleFileUpload}
+                    />
+                  </label>
+                </div>
+               
               </div>
               <table className="col-span-2 w-full text-sm text-left text-gray-500">
                 <thead className="text-2xs text-gray-500">
