@@ -20,7 +20,7 @@ interface EntryCardProps {
   info: IInventory;
 }
 
-export default function InventoryCard({ info }: EntryCardProps) {
+export default function AdminCard({ info }: EntryCardProps) {
   // console.log(info);
   const { productChoose, setProductChoose } = useContext(productContext);
 
@@ -81,7 +81,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
           : presentation}
       </td>
       <td className="px-2 py-2 ">{info.LOTE}</td>
-      {/* <td className="px-2 py-2 ">{info.CANTIDAD}</td> */}
+      <td className="px-2 py-2 ">{info.CANTIDAD}</td>
       <td
         className="px-2 py-2 "
         // style={fieldChoose === info._id ? fieldCheck : {}}

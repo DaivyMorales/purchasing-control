@@ -8,6 +8,7 @@ import * as xlsx from "xlsx";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { BiArrowToRight } from "react-icons/bi";
+import AdminCard from "@/components/AdminCard";
 
 interface MyProps {
   data: IInventory[];
@@ -31,7 +32,7 @@ interface IData {
   PRODUCTO: string;
 }
 
-export default function index({ data }: MyProps) {
+export default function OnlyAdminuser({ data }: MyProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
 
   const [information, setInformation] = useState<IInventory[]>([]);
@@ -132,9 +133,9 @@ export default function index({ data }: MyProps) {
                     <th scope="col" className="px-2 py-2 ">
                       Lote
                     </th>
-                    {/* <th scope="col" className="px-2 py-2 ">
+                    <th scope="col" className="px-2 py-2 ">
                       Cantidad
-                    </th> */}
+                    </th>
 
                     <th scope="col" className="px-2 py-2 ">
                       Conteo
@@ -149,7 +150,7 @@ export default function index({ data }: MyProps) {
                 </thead>
                 <tbody>
                   {information.map((info: IInventory) => (
-                    <InventoryCard info={info} key={info._id} />
+                    <AdminCard info={info} key={info._id} />
                   ))}
                 </tbody>
               </table>
