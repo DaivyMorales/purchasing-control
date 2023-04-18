@@ -20,6 +20,10 @@ interface EntryCardProps {
   info: IInventory;
 }
 
+interface Icounter {
+  CANTIDAD_CONTADA: number | any;
+}
+
 export default function AdminCard({ info }: EntryCardProps) {
   // console.log(info);
   const { productChoose, setProductChoose } = useContext(productContext);
@@ -28,8 +32,8 @@ export default function AdminCard({ info }: EntryCardProps) {
   const { updateInventory } = useContext(inventoryContext);
   const [presentation, setPresentation] = useState(0);
 
-  const [counter, setCounter] = useState({
-    CANTIDAD_CONTADA: !info.CANTIDAD_CONTADA ? 0 : info.CANTIDAD_CONTADA,
+  const [counter, setCounter] = useState<Icounter>({
+    CANTIDAD_CONTADA: !info.CANTIDAD_CONTADA ? Number : info.CANTIDAD_CONTADA,
   });
 
   console.log("counter:", counter.CANTIDAD_CONTADA);

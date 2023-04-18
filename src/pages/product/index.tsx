@@ -50,8 +50,8 @@ export default function HomeProduct({ data }: MyProps) {
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de productos</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.{" "}
-                <br></br> Tempore, eveniet?
+                Añade un nuevo Producto en el boton de{" "}
+                <br></br> + Crear Nuevo
               </p>
             </div>
             <div

@@ -92,8 +92,8 @@ export default function OnlyAdminuser({ data }: MyProps) {
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de inventario</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.{" "}
-                <br></br> Tempore, eveniet?
+                Importa un archivo de excel para cargar{" "}
+                <br></br> los datos en la tabla!
               </p>
             </div>
             <div
