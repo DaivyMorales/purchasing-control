@@ -115,9 +115,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
       </td>
       <td
         style={isNaN(TOTAL) ? { visibility: "hidden" } : {}}
-        className={`px-2 py-2 font-medium text-${
-          TOTAL - info.CANTIDAD > 0 ? "green-500" : "red-400"
-        }`}
+        className= {`px-2 py-2 font-medium ${TOTAL - info.CANTIDAD > 0 ? "text-gray-700" : "text-red-500"  }`}
       >
         {TOTAL - info.CANTIDAD}
       </td>
