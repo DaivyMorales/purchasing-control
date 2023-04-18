@@ -46,7 +46,7 @@ export default function HomeProduct({ data }: MyProps) {
           </div>
         </div>
         <div className=" flex flex-col justify-center items-center shadow-lg    ">
-          <div className="container mt-42 -mt-52 mx-auto  px-44 flex flex-col gap-y-6 mb-10">
+          <div className="container mt-42 -mt-52 mx-auto  px-10 sm:px-30 lg:px-44 flex flex-col gap-y-6 mb-10">
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de productos</h1>
               <p>

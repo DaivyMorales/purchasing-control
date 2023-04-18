@@ -1,6 +1,6 @@
 import { connect, connection } from "mongoose";
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
 
 type Conn = {
   isConnected: boolean;
@@ -13,7 +13,7 @@ const conn: Conn = {
 export const dbConnect = async () => {
   if (conn.isConnected) return;
 
-  const db = await connect(process.env.DB_LOCAL || "");
+  const db = await connect("mongodb://127.0.0.1:27017/purchasingDB" || "");
 
   conn.isConnected = !!db.connections[0].readyState;
 

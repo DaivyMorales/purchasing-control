@@ -1,5 +1,6 @@
 import { cardContext } from "@/context/CardContext";
 import { inventoryContext } from "@/context/InventoryContext";
+import { SiMicrosoftexcel } from "react-icons/si";
 import React, {
   useContext,
   useState,
@@ -33,23 +34,23 @@ export default function InventoryCard({ info }: EntryCardProps) {
   });
 
   const [presentation, setPresentation] = useState(0);
-  console.log(presentation);
 
   const getProduct = async (producto: string) => {
-    const response = await axios.get(
-      `http://localhost:3000/api/products/${producto}`
-    );
-    // setpresentation({
-    //   PRESENTACION: response.data.PRESENTACION
-    // });
-    setPresentation(response.data[0].PRESENTACION);
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/products/${producto}`
+      );
+      setPresentation(response.data[0].PRESENTACION);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     getProduct(info.PRODUCTO);
   }, []);
 
-  const TOTAL = info.CANTIDAD * info.CANTIDAD_CONTADA;
+  const TOTAL = presentation * info.CANTIDAD_CONTADA;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -69,7 +70,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
   };
 
   return (
-    <tr className="bg-white border-b border-gray-100   ">
+    <tr className="bg-white text-xs   ">
       <th
         scope="row"
         className="px-2 py-2 text-black font-medium whitespace-nowrap "
@@ -77,7 +78,11 @@ export default function InventoryCard({ info }: EntryCardProps) {
         {info.PRODUCTO}
       </th>
       <td className="px-2 py-2 ">{info.NOMBRE}</td>
-      <td className="px-2 py-2 ">{presentation}</td>
+      <td className="px-2 py-2 ">
+        {presentation === null || presentation === undefined
+          ? "----"
+          : presentation}
+      </td>
       <td className="px-2 py-2 ">{info.LOTE}</td>
       <td className="px-2 py-2 ">{info.CANTIDAD}</td>
       <td

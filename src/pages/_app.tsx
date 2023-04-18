@@ -8,6 +8,7 @@ import { CardContextProvider } from "../context/CardContext";
 import { InventoryContextProvider } from "../context/InventoryContext";
 import { AlertContextProvider } from "../context/AlertContext";
 import { ProductContextProvider } from "../context/ProductContext";
+import { FileContextProvider } from "@/context/FileCotext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,16 +16,18 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ProductContextProvider>
-      <AlertContextProvider>
-        <InventoryContextProvider>
-          <CardContextProvider>
-            {/* <main className={inter.className}> */}{" "}
-            <Component {...pageProps} />
-            {/* </main>k */}
-          </CardContextProvider>
-        </InventoryContextProvider>
-      </AlertContextProvider>
-    </ProductContextProvider>
+    <FileContextProvider>
+      <ProductContextProvider>
+        <AlertContextProvider>
+          <InventoryContextProvider>
+            <CardContextProvider>
+              {/* <main className={inter.className}> */}{" "}
+              <Component {...pageProps} />
+              {/* </main>k */}
+            </CardContextProvider>
+          </InventoryContextProvider>
+        </AlertContextProvider>
+      </ProductContextProvider>
+    </FileContextProvider>
   );
 }

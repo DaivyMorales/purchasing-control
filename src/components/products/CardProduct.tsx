@@ -34,10 +34,9 @@ export default function CardProduct({ product, index }: CardProductProps) {
   const [productSchema, setProductSchema] = useState({
     PRODUCTO: product.PRODUCTO,
     NOMBRE: product.NOMBRE,
-    PRESENTACION: product.PRESENTACION,
+    PRESENTACION: product.PRESENTACION === 0 ? 1 : product.PRESENTACION,
   });
 
-  console.log(productSchema);
   const formik = useFormik({
     initialValues: { productSchema },
     onSubmit: (values) => {
@@ -127,14 +126,14 @@ export default function CardProduct({ product, index }: CardProductProps) {
               onBlur={formik.handleBlur}
               name="productSchema.PRESENTACION"
               value={
-                product.PRESENTACION
+                productSchema.PRESENTACION
                   ? formik.values.productSchema.PRESENTACION
                   : ""
               }
             />
           </form>
         ) : (
-          product.PRESENTACION
+          productSchema.PRESENTACION
         )}
       </td>
       <td className="py-2 px-2  flex gap-x-2">

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "../../../utils/database";
-import importData from "../../../utils/importData";
 import Inventory from "../../../models/inventory";
+// import UploadFile from "@/components/excel/UploadFile";
 
 export default async function indexInventory(
   req: NextApiRequest,
@@ -26,8 +26,7 @@ export default async function indexInventory(
 
     case "POST":
       try {
-        const insertedData = await importData();
-
+        const insertedData = await Inventory.insertMany(req.body);
         return res.status(200).json(insertedData);
       } catch (error) {
         if (error instanceof Error) {
