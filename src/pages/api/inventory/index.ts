@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect } from "../../../utils/database";
 import Inventory from "../../../models/inventory";
-// import UploadFile from "@/components/excel/UploadFile";
 
 export default async function indexInventory(
   req: NextApiRequest,
