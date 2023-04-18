@@ -8,7 +8,9 @@ import * as xlsx from "xlsx";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { BiArrowToRight } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
 import AdminCard from "@/components/AdminCard";
+import { inventoryContext } from "@/context/InventoryContext";
 
 interface MyProps {
   data: IInventory[];
@@ -34,6 +36,7 @@ interface IData {
 
 export default function OnlyAdminuser({ data }: MyProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
+  const { deleteAllInventory } = useContext(inventoryContext);
 
   const [information, setInformation] = useState<IInventory[]>([]);
   const [dataFound, setDataFound] = useState<IData[]>([]);
@@ -87,13 +90,13 @@ export default function OnlyAdminuser({ data }: MyProps) {
             <h4 className="text-purple-700 text-sm ">Ir a productos</h4>
           </div>
         </div>
-        <div className=" flex flex-col justify-center items-center shadow-lg    ">
+        <div className=" flex flex-col justify-center items-center     ">
           <div className="container mt-42 -mt-52 mx-auto  px-10  flex flex-col gap-y-6 mb-10">
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de inventario</h1>
               <p>
-                Importa un archivo de excel para cargar{" "}
-                <br></br> los datos en la tabla!
+                Importa un archivo de excel para cargar <br></br> los datos en
+                la tabla!
               </p>
             </div>
             <div
@@ -117,6 +120,15 @@ export default function OnlyAdminuser({ data }: MyProps) {
                     />
                   </label>
                 </div>
+                <button
+                  onClick={() => {
+                    deleteAllInventory();
+                    setInformation([]);
+                  }}
+                  className="bg-red-500 p-2 hover:bg-red-400"
+                >
+                  <AiFillDelete size={15} />
+                </button>
               </div>
               <table className="col-span-2 w-full text-sm text-left text-gray-500">
                 <thead className="text-2xs text-gray-500">

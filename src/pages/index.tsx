@@ -86,7 +86,7 @@ export default function index({ data }: MyProps) {
             <h4 className="text-purple-700 text-sm ">Ir a productos</h4>
           </div>
         </div>
-        <div className=" flex flex-col justify-center items-center shadow-lg    ">
+        <div className=" flex flex-col justify-center items-center">
           <div className="container mt-42 -mt-52 mx-auto  px-10  flex flex-col gap-y-6 mb-10">
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de inventario</h1>

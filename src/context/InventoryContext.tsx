@@ -21,6 +21,7 @@ interface IContext {
   setInventories: React.Dispatch<React.SetStateAction<IInventory[]>>;
   updateInventory: (id: string, body: object) => Promise<void>;
   getInventory: (id: string) => Promise<void>;
+  deleteAllInventory: () => Promise<void>;
 }
 
 export const inventoryContext = createContext<IContext>({
@@ -28,6 +29,7 @@ export const inventoryContext = createContext<IContext>({
   setInventories: () => {},
   updateInventory: async () => {},
   getInventory: async () => {},
+  deleteAllInventory: async () => {},
 });
 
 export const InventoryContextProvider = ({
@@ -69,10 +71,24 @@ export const InventoryContextProvider = ({
       console.log(error);
     }
   };
+  const deleteAllInventory = async () => {
+    try {
+      await axios.delete("http://localhost:3000/api/inventory");
+      setInventories([]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <inventoryContext.Provider
-      value={{ inventories, setInventories, updateInventory, getInventory }}
+      value={{
+        inventories,
+        setInventories,
+        updateInventory,
+        getInventory,
+        deleteAllInventory,
+      }}
     >
       {children}
     </inventoryContext.Provider>
