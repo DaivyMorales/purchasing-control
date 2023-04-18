@@ -9,8 +9,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { BiArrowToRight } from "react-icons/bi";
 
-
-
 interface MyProps {
   data: IInventory[];
 }
@@ -41,7 +39,6 @@ export default function index({ data }: MyProps) {
 
   useEffect(() => {
     setInformation(data);
-    console.log(data);
   }, []);
 
   const handleFileUpload = async (
@@ -64,7 +61,6 @@ export default function index({ data }: MyProps) {
           "http://localhost:3000/api/inventory",
           dataExcel
         );
-        console.log(response.data);
         setInformation(response.data);
       } catch (error) {
         console.log(error);
@@ -86,7 +82,7 @@ export default function index({ data }: MyProps) {
             className="text-purple-700 flex justify-end px-4 py-3 items-center gap-x-1 cursor-pointer"
             onClick={() => router.push("/product")}
           >
-            <BiArrowToRight  size={18} />
+            <BiArrowToRight size={18} />
             <h4 className="text-purple-700 text-sm ">Ir a productos</h4>
           </div>
         </div>
@@ -120,7 +116,6 @@ export default function index({ data }: MyProps) {
                     />
                   </label>
                 </div>
-               
               </div>
               <table className="col-span-2 w-full text-sm text-left text-gray-500">
                 <thead className="text-2xs text-gray-500">

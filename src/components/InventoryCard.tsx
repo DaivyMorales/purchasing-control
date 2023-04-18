@@ -1,14 +1,9 @@
 import { cardContext } from "@/context/CardContext";
 import { inventoryContext } from "@/context/InventoryContext";
-import { SiMicrosoftexcel } from "react-icons/si";
-import React, {
-  useContext,
-  useState,
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-} from "react";
+import React, { useContext, useState, ChangeEvent, useEffect } from "react";
 import axios from "axios";
+import { useFormik } from "formik";
+import { productContext } from "@/context/ProductContext";
 
 interface IInventory {
   PRODUCTO: string;
@@ -26,14 +21,18 @@ interface EntryCardProps {
 }
 
 export default function InventoryCard({ info }: EntryCardProps) {
+  // console.log(info);
+  const { productChoose, setProductChoose } = useContext(productContext);
+
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
   const { updateInventory } = useContext(inventoryContext);
+  const [presentation, setPresentation] = useState(0);
 
-  const [counter, setCounter] = useState<object>({
-    CANTIDAD_CONTADA: 0,
+  const [counter, setCounter] = useState({
+    CANTIDAD_CONTADA: !info.CANTIDAD_CONTADA ? 0 : info.CANTIDAD_CONTADA,
   });
 
-  const [presentation, setPresentation] = useState(0);
+  console.log("counter:", counter.CANTIDAD_CONTADA);
 
   const getProduct = async (producto: string) => {
     try {
@@ -50,24 +49,22 @@ export default function InventoryCard({ info }: EntryCardProps) {
     getProduct(info.PRODUCTO);
   }, []);
 
-  const TOTAL = presentation * info.CANTIDAD_CONTADA;
+  const formik = useFormik({
+    initialValues: {
+      counter,
+    },
+    onSubmit: (values) => {
+      updateInventory(info._id, values.counter);
+      setCounter(values.counter);
+      setProductChoose("n");
+    },
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const response = await updateInventory(info._id, counter); // Evita que se recargue la página al enviar el formulario
-    console.log(response);
-  };
+    enableReinitialize: true,
+  });
 
-  const handleCounterChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCounter({
-      CANTIDAD_CONTADA: event.target.value,
-    });
-  };
+  console.log("formik.values:", formik.values);
 
-  const fieldCheck = {
-    borderColor: "blue",
-    borderWidth: "2px",
-  };
+  const TOTAL: number = presentation * counter.CANTIDAD_CONTADA;
 
   return (
     <tr className="bg-white text-xs   ">
@@ -87,28 +84,39 @@ export default function InventoryCard({ info }: EntryCardProps) {
       <td className="px-2 py-2 ">{info.CANTIDAD}</td>
       <td
         className="px-2 py-2 "
-        style={fieldChoose === info._id ? fieldCheck : {}}
+        // style={fieldChoose === info._id ? fieldCheck : {}}
         onClick={() => setFieldChoose(info._id)}
       >
-        {fieldChoose === info._id ? (
-          <>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="number"
-                className="fieldInput"
-                onChange={handleCounterChange}
-              />
-              <button type="submit" className="hidden">
-                Holas
-              </button>
-            </form>
-          </>
-        ) : (
-          info.CANTIDAD_CONTADA
-        )}
+        <>
+          <form onSubmit={formik.handleSubmit}>
+            <input
+              name="counter.CANTIDAD_CONTADA"
+              type="number"
+              className="inputEdit"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.counter.CANTIDAD_CONTADA}
+            />
+            <button type="submit" className="hidden">
+              Cambiar
+            </button>
+          </form>
+        </>
       </td>
-      <td className="px-2 py-2 ">{TOTAL}</td>
-      <td className="px-2 py-2  text-red-400">{TOTAL - info.CANTIDAD}</td>
+      <td
+        style={isNaN(TOTAL) ? { visibility: "hidden" } : {}}
+        className="px-2 py-2 "
+      >
+        {TOTAL}
+      </td>
+      <td
+        style={isNaN(TOTAL) ? { visibility: "hidden" } : {}}
+        className={`px-2 py-2 font-medium text-${
+          TOTAL - info.CANTIDAD > 0 ? "green-500" : "red-400"
+        }`}
+      >
+        {TOTAL - info.CANTIDAD}
+      </td>
     </tr>
   );
 }

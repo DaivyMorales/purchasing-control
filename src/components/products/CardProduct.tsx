@@ -121,7 +121,6 @@ export default function CardProduct({ product, index }: CardProductProps) {
             <input
               className="inputEdit"
               type="number"
-              // name="PRESENTACION"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               name="productSchema.PRESENTACION"
