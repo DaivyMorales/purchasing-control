@@ -11,7 +11,17 @@ import { BiArrowToRight } from "react-icons/bi";
 import { productContext } from "@/context/ProductContext";
 
 interface MyProps {
-  data: IInventory[];
+  data1: IInventory[];
+  data2: IProducts[];
+}
+
+interface IProducts {
+  PRODUCTO: string;
+  NOMBRE: string;
+  PRESENTACION: number;
+  _id: string;
+  createdAt: string;
+  updateAt: string;
 }
 
 interface IInventory {
@@ -32,7 +42,7 @@ interface IData {
   PRODUCTO: string;
 }
 
-export default function index({ data }: MyProps) {
+export default function index({ data1, data2 }: MyProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
   const { setProducts, getProducts } = useContext(productContext);
 
@@ -40,8 +50,8 @@ export default function index({ data }: MyProps) {
   const [dataFound, setDataFound] = useState<IData[]>([]);
 
   useEffect(() => {
-    setInformation(data);
-    getProducts();
+    setInformation(data1);
+    setProducts(data2);
   }, []);
 
   const handleFileUpload = async (
@@ -165,10 +175,17 @@ export default function index({ data }: MyProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const res = await fetch("https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/inventory");
-  const data = await res.json();
+  const res1 = await fetch(
+    "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/inventory"
+  );
+  const data1 = await res1.json();
+
+  const res2 = await fetch(
+    "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/products"
+  );
+  const data2 = await res2.json();
 
   return {
-    props: { data },
+    props: { data1, data2 },
   };
 }
