@@ -8,6 +8,7 @@ import * as xlsx from "xlsx";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { BiArrowToRight } from "react-icons/bi";
+import { productContext } from "@/context/ProductContext";
 
 interface MyProps {
   data: IInventory[];
@@ -33,12 +34,14 @@ interface IData {
 
 export default function index({ data }: MyProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
+  const { setProducts, getProducts } = useContext(productContext);
 
   const [information, setInformation] = useState<IInventory[]>([]);
   const [dataFound, setDataFound] = useState<IData[]>([]);
 
   useEffect(() => {
     setInformation(data);
+    getProducts();
   }, []);
 
   const handleFileUpload = async (
@@ -58,7 +61,7 @@ export default function index({ data }: MyProps) {
       const dataExcel: Array<IData> = xlsx.utils.sheet_to_json(worksheet);
       try {
         const response = await axios.post(
-          "https://purchasing-control.vercel.app/api/inventory",
+          "http://localhost:3000/api/inventory",
           dataExcel
         );
         setInformation(response.data);
@@ -91,8 +94,8 @@ export default function index({ data }: MyProps) {
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de inventario</h1>
               <p>
-                Importa un archivo de excel para cargar{" "}
-                <br></br> los datos en la tabla!
+                Importa un archivo de excel para cargar <br></br> los datos en
+                la tabla!
               </p>
             </div>
             <div
@@ -162,7 +165,7 @@ export default function index({ data }: MyProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const res = await fetch("https://purchasing-control.vercel.app/api/inventory");
+  const res = await fetch("http://localhost:3000/api/inventory");
   const data = await res.json();
 
   return {

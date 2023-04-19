@@ -21,36 +21,27 @@ interface EntryCardProps {
 }
 
 interface Icounter {
-  CANTIDAD_CONTADA: number | any;
+  CANTIDAD_CONTADA: number;
 }
 
 export default function InventoryCard({ info }: EntryCardProps) {
-  // console.log(info);
-  const { productChoose, setProductChoose } = useContext(productContext);
+  const { productChoose, setProductChoose, products } =
+    useContext(productContext);
 
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
   const { updateInventory } = useContext(inventoryContext);
   const [presentation, setPresentation] = useState(0);
 
   const [counter, setCounter] = useState<Icounter>({
-    CANTIDAD_CONTADA: !info.CANTIDAD_CONTADA ? Number : info.CANTIDAD_CONTADA,
+    CANTIDAD_CONTADA: !info.CANTIDAD_CONTADA ? 0 : info.CANTIDAD_CONTADA,
   });
 
-  console.log("counter:", counter.CANTIDAD_CONTADA);
-
-  const getProduct = async (producto: string) => {
-    try {
-      const response = await axios.get(
-        `https://purchasing-control.vercel.app/api/products/${producto}`
-      );
-      setPresentation(response.data[0].PRESENTACION);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getProduct(info.PRODUCTO);
+    products.filter((product) => {
+      product.NOMBRE === info.NOMBRE
+        ? setPresentation(product.PRESENTACION)
+        : "";
+    });
   }, []);
 
   const formik = useFormik({
@@ -66,9 +57,10 @@ export default function InventoryCard({ info }: EntryCardProps) {
     enableReinitialize: true,
   });
 
-  console.log("formik.values:", formik.values);
-
-  const TOTAL: number = presentation * counter.CANTIDAD_CONTADA;
+  const TOTAL: number =
+    formik.values.counter.CANTIDAD_CONTADA === 0
+      ? NaN
+      : presentation * counter.CANTIDAD_CONTADA;
 
   return (
     <tr className="bg-white text-xs   ">
@@ -99,7 +91,11 @@ export default function InventoryCard({ info }: EntryCardProps) {
               className="inputEdit"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.counter.CANTIDAD_CONTADA}
+              value={
+                formik.values.counter.CANTIDAD_CONTADA === 0
+                  ? ""
+                  : formik.values.counter.CANTIDAD_CONTADA
+              }
             />
             <button type="submit" className="hidden">
               Cambiar
@@ -115,7 +111,9 @@ export default function InventoryCard({ info }: EntryCardProps) {
       </td>
       <td
         style={isNaN(TOTAL) ? { visibility: "hidden" } : {}}
-        className= {`px-2 py-2 font-medium ${TOTAL - info.CANTIDAD > 0 ? "text-gray-700" : "text-red-500"  }`}
+        className={`px-2 py-2 font-medium ${
+          TOTAL - info.CANTIDAD > 0 ? "text-gray-700" : "text-red-500"
+        }`}
       >
         {TOTAL - info.CANTIDAD}
       </td>

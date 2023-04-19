@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 interface ProductContextProps {
@@ -22,6 +22,7 @@ interface IContext {
   createProduct: (values: object | undefined) => Promise<void>;
   deleteProduct: (producto: string) => Promise<void>;
   updateProduct: (producto: string, body: object) => Promise<void>;
+  getProducts: () => Promise<void>;
 }
 
 export const productContext = createContext<IContext>({
@@ -32,17 +33,29 @@ export const productContext = createContext<IContext>({
   createProduct: async () => {},
   deleteProduct: async () => {},
   updateProduct: async () => {},
+  getProducts: async () => {},
 });
 
 export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const [products, setProducts] = useState<IProducts[]>([]);
+
+  // console.log(products)
+
+  const getProducts = async () => {
+    const response = await axios.get("http://localhost:3000/api/products");
+    setProducts(response.data);
+  };
+
+  // useEffect(() => {
+  //   getProducts();
+  // }, []);
 
   const [productChoose, setProductChoose] = useState<string>("n");
 
   const createProduct = async (values: object | undefined) => {
     try {
       const response = await axios.post(
-        "https://purchasing-control.vercel.app/api/products",
+        "http://localhost:3000/api/products",
         values
       );
       setProducts([...products, response.data]);
@@ -54,7 +67,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const deleteProduct = async (producto: string) => {
     try {
       const response = await axios.delete(
-        `https://purchasing-control.vercel.app/api/products/${producto}`
+        `http://localhost:3000/api/products/${producto}`
       );
       setProducts(products.filter((product) => product.PRODUCTO !== producto));
       return response.data;
@@ -66,7 +79,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const updateProduct = async (producto: string, body: object) => {
     try {
       const response = await axios.put(
-        `https://purchasing-control.vercel.app/api/products/${producto}`,
+        `http://localhost:3000/api/products/${producto}`,
         body
       );
       setProducts(
@@ -93,6 +106,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
         productChoose,
         setProductChoose,
         updateProduct,
+        getProducts,
       }}
     >
       {children}
