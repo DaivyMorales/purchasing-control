@@ -9,7 +9,7 @@ module.exports = {
           {
             key: "Access-Control-Allow-Origin",
             value:
-              "http://localhost:3000, https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app ",
+              "http://localhost:3000, https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app",
           },
           {
             key: "Access-Control-Allow-Methods",
