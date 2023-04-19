@@ -162,7 +162,7 @@ export default function index({ data }: MyProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const res = await fetch("http://localhost:3000/api/inventory");
+  const res = await fetch("https://purchasing-control.vercel.app/api/inventory");
   const data = await res.json();
 
   return {

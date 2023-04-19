@@ -50,8 +50,7 @@ export default function HomeProduct({ data }: MyProps) {
             <div className="flex flex-col gap-y-2">
               <h1>Tabla de productos</h1>
               <p>
-                Añade un nuevo Producto en el boton de{" "}
-                <br></br> + Crear Nuevo
+                Añade un nuevo Producto en el boton de <br></br> + Crear Nuevo
               </p>
             </div>
             <div
@@ -110,7 +109,7 @@ export default function HomeProduct({ data }: MyProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const res = await fetch("http://localhost:3000/api/products");
+  const res = await fetch("https://purchasing-control.vercel.app/api/products");
   const data = await res.json();
 
   return {
