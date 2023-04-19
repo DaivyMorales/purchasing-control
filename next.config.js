@@ -8,7 +8,7 @@ module.exports = {
         headers: [
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.NEXT_PUBLIC_API_URL,
+            value: "http://localhost:3000/api/",
           },
           {
             key: "Access-Control-Allow-Methods",
