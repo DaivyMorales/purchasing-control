@@ -9,6 +9,9 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { BiArrowToRight } from "react-icons/bi";
 import { productContext } from "@/context/ProductContext";
+import AdminCard from "@/components/AdminCard";
+import { inventoryContext } from "@/context/InventoryContext";
+import { AiFillDelete } from "react-icons/ai";
 
 interface MyProps {
   data: IInventory[];
@@ -32,9 +35,11 @@ interface IData {
   PRODUCTO: string;
 }
 
-export default function index({ data }: MyProps) {
+export default function onlyadminuser({ data }: MyProps) {
   const { fieldChoose, setFieldChoose } = useContext(cardContext);
   const { setProducts, getProducts } = useContext(productContext);
+
+  const { deleteAllInventory } = useContext(inventoryContext);
 
   const [information, setInformation] = useState<IInventory[]>([]);
   const [dataFound, setDataFound] = useState<IData[]>([]);
@@ -106,7 +111,7 @@ export default function index({ data }: MyProps) {
                   {information.length}
                 </div>
               </div>
-              {/* <div className="flex justify-end items-start gap-x-3 ">
+              <div className="flex justify-end items-start gap-x-3 ">
                 <div>
                   <label className="buttonExcel">
                     <RiFileExcel2Fill />
@@ -119,7 +124,16 @@ export default function index({ data }: MyProps) {
                     />
                   </label>
                 </div>
-              </div> */}
+                <button
+                  onClick={() => {
+                    deleteAllInventory();
+                    setInformation([]);
+                  }}
+                  className="bg-red-500 p-2 hover:bg-red-400"
+                >
+                  <AiFillDelete size={15} />
+                </button>
+              </div>
               <table className="col-span-2 w-full text-sm text-left text-gray-500">
                 <thead className="text-2xs text-gray-500">
                   <tr className="border-b font-normal text-xs border-gray-100">
@@ -135,9 +149,9 @@ export default function index({ data }: MyProps) {
                     <th scope="col" className="px-2 py-2 ">
                       Lote
                     </th>
-                    {/* <th scope="col" className="px-2 py-2 ">
+                    <th scope="col" className="px-2 py-2 ">
                       Cantidad
-                    </th> */}
+                    </th>
 
                     <th scope="col" className="px-2 py-2 ">
                       Conteo
@@ -145,14 +159,14 @@ export default function index({ data }: MyProps) {
                     <th scope="col" className="px-2 py-2 ">
                       Total
                     </th>
-                    {/* <th scope="col" className="px-2 py-2 rounded-se-lg">
+                    <th scope="col" className="px-2 py-2 rounded-se-lg">
                       Diferencia
-                    </th> */}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {information.map((info: IInventory) => (
-                    <InventoryCard info={info} key={info._id} />
+                    <AdminCard info={info} key={info._id} />
                   ))}
                 </tbody>
               </table>
@@ -165,7 +179,9 @@ export default function index({ data }: MyProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const res = await fetch("https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/inventory");
+  const res = await fetch(
+    "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/inventory"
+  );
   const data = await res.json();
 
   return {

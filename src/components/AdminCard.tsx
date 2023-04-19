@@ -25,6 +25,7 @@ interface Icounter {
 }
 
 export default function InventoryCard({ info }: EntryCardProps) {
+  console.log(info)
   const { productChoose, setProductChoose, products } =
     useContext(productContext);
 
@@ -77,7 +78,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
           : presentation}
       </td>
       <td className="px-2 py-2 ">{info.LOTE}</td>
-      {/* <td className="px-2 py-2 ">{info.CANTIDAD}</td> */}
+      <td className="px-2 py-2 ">{info.CANTIDAD}</td>
       <td
         className="px-2 py-2 "
         // style={fieldChoose === info._id ? fieldCheck : {}}
@@ -108,6 +109,14 @@ export default function InventoryCard({ info }: EntryCardProps) {
         className="px-2 py-2 "
       >
         {TOTAL}
+      </td>
+      <td
+        style={isNaN(TOTAL) ? { visibility: "hidden" } : {}}
+        className={`px-2 py-2 font-medium ${
+          TOTAL - info.CANTIDAD > 0 ? "text-gray-700" : "text-red-500"
+        }`}
+      >
+        {TOTAL - info.CANTIDAD}
       </td>
     </tr>
   );
