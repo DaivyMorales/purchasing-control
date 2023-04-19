@@ -62,7 +62,7 @@ export default function OnlyAdminuser({ data }: MyProps) {
       const dataExcel: Array<IData> = xlsx.utils.sheet_to_json(worksheet);
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/inventory",
+          "https://purchasing-control.vercel.app/api/inventory",
           dataExcel
         );
         setInformation(response.data);
@@ -175,7 +175,7 @@ export default function OnlyAdminuser({ data }: MyProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const res = await fetch("http://localhost:3000/api/inventory");
+  const res = await fetch("https://purchasing-control.vercel.app/api/inventory");
   const data = await res.json();
 
   return {

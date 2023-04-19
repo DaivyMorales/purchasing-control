@@ -41,7 +41,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
   const getProduct = async (producto: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/products/${producto}`
+        `https://purchasing-control.vercel.app/api/products/${producto}`
       );
       setPresentation(response.data[0].PRESENTACION);
     } catch (error) {

@@ -58,7 +58,7 @@ export default function index({ data }: MyProps) {
       const dataExcel: Array<IData> = xlsx.utils.sheet_to_json(worksheet);
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/inventory",
+          "https://purchasing-control.vercel.app/api/inventory",
           dataExcel
         );
         setInformation(response.data);

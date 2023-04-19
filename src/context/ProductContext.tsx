@@ -42,7 +42,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const createProduct = async (values: object | undefined) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/products",
+        "https://purchasing-control.vercel.app/api/products",
         values
       );
       setProducts([...products, response.data]);
@@ -54,7 +54,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const deleteProduct = async (producto: string) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/products/${producto}`
+        `https://purchasing-control.vercel.app/api/products/${producto}`
       );
       setProducts(products.filter((product) => product.PRODUCTO !== producto));
       return response.data;
@@ -66,7 +66,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const updateProduct = async (producto: string, body: object) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/products/${producto}`,
+        `https://purchasing-control.vercel.app/api/products/${producto}`,
         body
       );
       setProducts(

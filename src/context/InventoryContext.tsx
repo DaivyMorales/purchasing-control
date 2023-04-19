@@ -41,7 +41,7 @@ export const InventoryContextProvider = ({
     console.log(id, body);
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/inventory/${id}`,
+        `https://purchasing-control.vercel.app/api/inventory/${id}`,
         body
       );
 
@@ -64,7 +64,7 @@ export const InventoryContextProvider = ({
   const getInventory = async (id: string) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/inventory/${id}`
+        `https://purchasing-control.vercel.app/api/inventory/${id}`
       );
       return response.data;
     } catch (error) {
@@ -73,7 +73,7 @@ export const InventoryContextProvider = ({
   };
   const deleteAllInventory = async () => {
     try {
-      await axios.delete("http://localhost:3000/api/inventory");
+      await axios.delete("https://purchasing-control.vercel.app/api/inventory");
       setInventories([]);
     } catch (error) {
       console.log(error);
