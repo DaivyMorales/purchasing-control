@@ -32,8 +32,6 @@ export default function ProductsForm() {
 
   return (
     <motion.div
-      // initial={{ opacity: 0, scale: 0.6 }}
-      // animate={{ opacity: 1, scale: 1 }}
       className="alertBox "
       style={showAlert ? { visibility: "visible" } : { visibility: "hidden" }}
     >
@@ -64,6 +62,7 @@ export default function ProductsForm() {
             <label htmlFor="PRESENTACION">Presentacion</label>
             <input
               type="number"
+              step="any"
               className="inputForm"
               placeholder="25"
               name="PRESENTACION"
