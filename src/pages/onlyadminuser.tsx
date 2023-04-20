@@ -191,12 +191,12 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const res1 = await fetch(
-    "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/inventory"
+    "https://purchasing-control.vercel.app/api/inventory"
   );
   const data1 = await res1.json();
 
   const res2 = await fetch(
-    "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/products"
+    "https://purchasing-control.vercel.app/api/products"
   );
   const data2 = await res2.json();
 

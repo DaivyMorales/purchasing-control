@@ -42,7 +42,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   // console.log(products)
 
   const getProducts = async () => {
-    const response = await axios.get("https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/products");
+    const response = await axios.get("https://purchasing-control.vercel.app/api/products");
     setProducts(response.data);
   };
 
@@ -55,7 +55,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const createProduct = async (values: object | undefined) => {
     try {
       const response = await axios.post(
-        "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/products",
+        "https://purchasing-control.vercel.app/api/products",
         values
       );
       setProducts([...products, response.data]);
@@ -67,7 +67,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const deleteProduct = async (producto: string) => {
     try {
       const response = await axios.delete(
-        `https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/products/${producto}`
+        `https://purchasing-control.vercel.app/api/products/${producto}`
       );
       setProducts(products.filter((product) => product.PRODUCTO !== producto));
       return response.data;
@@ -79,7 +79,7 @@ export const ProductContextProvider = ({ children }: ProductContextProps) => {
   const updateProduct = async (producto: string, body: object) => {
     try {
       const response = await axios.put(
-        `https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/products/${producto}`,
+        `https://purchasing-control.vercel.app/api/products/${producto}`,
         body
       );
       setProducts(

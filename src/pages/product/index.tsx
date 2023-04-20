@@ -110,7 +110,7 @@ export default function HomeProduct({ data }: MyProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const res = await fetch(
-    "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/products"
+    "https://purchasing-control.vercel.app/api/products"
   );
   const data = await res.json();
 
