@@ -60,6 +60,7 @@ body {
     .gradientDiv {
         height: 50vh;
         background-image: linear-gradient(to left, #d8e1ff, #f4d6fa, white);
+        @apply flex justify-end items-start;
         /* elimina los bordes */
         /* elimina la sombra */
     }

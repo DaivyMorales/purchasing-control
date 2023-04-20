@@ -38,11 +38,11 @@ export default function HomeProduct({ data }: MyProps) {
       <div className={` blur-${showAlert ? "sm" : "none"} `}>
         <div className="gradientDiv ">
           <div
-            className="text-purple-700 flex justify-start px-4 py-3 items-center gap-x-1 cursor-pointer"
-            onClick={() => router.push("/")}
+            className="text-purple-700  flex justify-start px-4 py-3 items-center gap-x-1 "
+            
           >
             <BiArrowBack size={18} />
-            <h4 className="text-purple-700 text-sm ">Volver</h4>
+            <h4 onClick={() => router.push("/")} className="text-purple-700 text-sm cursor-pointer">Volver</h4>
           </div>
         </div>
         <div className=" flex flex-col justify-center items-center shadow-lg    ">

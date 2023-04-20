@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, ChangeEvent } from "react";
 import { GetServerSidePropsContext } from "next";
 import InventoryCard from "@/components/InventoryCard";
 import { MdOutlineAdd } from "react-icons/md";
 import { RiFileExcel2Fill } from "react-icons/ri";
+import { IoSearch } from "react-icons/io5";
 import { cardContext } from "@/context/CardContext";
 import * as xlsx from "xlsx";
 import axios from "axios";
@@ -48,6 +49,11 @@ export default function index({ data1, data2 }: MyProps) {
 
   const [information, setInformation] = useState<IInventory[]>([]);
   const [dataFound, setDataFound] = useState<IData[]>([]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleProduct = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
 
   useEffect(() => {
     setInformation(data1);
@@ -102,18 +108,32 @@ export default function index({ data1, data2 }: MyProps) {
         <div className=" flex flex-col justify-center items-center">
           <div className="container mt-42 -mt-52 mx-auto  px-10  flex flex-col gap-y-6 mb-10">
             <div className="flex flex-col gap-y-2">
-              <h1>Tabla de inventario</h1>
+              <h1>Conteo Inventario</h1>
               <p>
-                Importa un archivo de excel para cargar <br></br> los datos en
-                la tabla!
+                Tabla de inventario, ingresa los conteos<br></br> por producto!
               </p>
+              <div className="text-2xs px-1 rounded-full  font-black text-purple-700">
+                {information.length}
+              </div>
             </div>
             <div
               className={`relative overflow-x-auto  grid grid-cols-2 border-1 gap-4 rounded-xl  bg-white shadow-lg px-4 py-5`}
             >
-              <div className="flex justify-start items-start ">
-                <div className="text-2xs px-1 rounded-full bg-gray-200 font-black text-purple-700">
-                  {information.length}
+              <div
+                className="flex justify-start items-center "
+                style={information.length === 0 ? { visibility: "hidden" } : {}}
+              >
+                <div className="">
+                  <label className="text-xs">Buscar Producto</label>
+                  <div className="flex gap-x-1 items-center justify-center bg-gray-100 rounded-lg pl-2">
+                    <IoSearch />
+                    <input
+                      type="text"
+                      className="w-22 text-xs font-semibold"
+                      onChange={handleProduct}
+                      placeholder="Ej: APA-15"
+                    />
+                  </div>
                 </div>
               </div>
               {/* <div className="flex justify-end items-start gap-x-3 ">
@@ -161,9 +181,17 @@ export default function index({ data1, data2 }: MyProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {information.map((info: IInventory) => (
-                    <InventoryCard info={info} key={info._id} />
-                  ))}
+                  {information
+                    .filter((info) => {
+                      if (searchTerm == "") {
+                        return info;
+                      } else if (info.PRODUCTO.includes(searchTerm)) {
+                        return info;
+                      }
+                    })
+                    .map((info: IInventory) => (
+                      <InventoryCard info={info} key={info._id} />
+                    ))}
                 </tbody>
               </table>
             </div>

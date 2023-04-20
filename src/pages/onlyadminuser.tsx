@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, ChangeEvent } from "react";
 import { GetServerSidePropsContext } from "next";
 import InventoryCard from "@/components/InventoryCard";
 import { MdOutlineAdd } from "react-icons/md";
@@ -12,6 +12,7 @@ import { productContext } from "@/context/ProductContext";
 import AdminCard from "@/components/AdminCard";
 import { inventoryContext } from "@/context/InventoryContext";
 import { AiFillDelete } from "react-icons/ai";
+import { IoSearch } from "react-icons/io5";
 
 interface MyProps {
   data1: IInventory[];
@@ -53,6 +54,11 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
 
   const [information, setInformation] = useState<IInventory[]>([]);
   const [dataFound, setDataFound] = useState<IData[]>([]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleProduct = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
 
   useEffect(() => {
     setInformation(data1);
@@ -106,26 +112,13 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
         </div>
         <div className=" flex flex-col justify-center items-center">
           <div className="container mt-42 -mt-52 mx-auto  px-10  flex flex-col gap-y-6 mb-10">
-            <div className="flex flex-col gap-y-2">
-              <h1>Tabla de inventario</h1>
+            <div className="flex flex-col justify-start items-start gap-y-2">
+              <h1>Reporte de Inventario</h1>
               <p>
                 Importa un archivo de excel para cargar <br></br> los datos en
                 la tabla!
               </p>
-            </div>
-            <div
-              className={`relative overflow-x-auto  grid grid-cols-2 border-1 gap-4 rounded-xl  bg-white px-4 py-5`}
-            >
-              <div className="w-full flex justify-start items-start gap-x-3 ">
-                <button
-                  onClick={() => {
-                    deleteAllInventory();
-                    setInformation([]);
-                  }}
-                  className="bg-red-500 p-2 hover:bg-red-400"
-                >
-                  <AiFillDelete size={15} />
-                </button>
+              <div className="flex gap-x-2">
                 <div>
                   <label className="buttonExcel">
                     <RiFileExcel2Fill />
@@ -138,12 +131,40 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
                     />
                   </label>
                 </div>
+                <button
+                  style={
+                    information.length === 0 ? { visibility: "hidden" } : {}
+                  }
+                  onClick={() => {
+                    deleteAllInventory();
+                    setInformation([]);
+                  }}
+                  className="bg-red-500 p-2 hover:bg-red-400"
+                >
+                  <AiFillDelete size={15} />
+                </button>
               </div>
-              <div className="flex justify-end items-start  ">
-                <div className="text-2xs px-1  rounded-full bg-gray-200 font-black text-purple-700">
-                  {information.length}
+            </div>
+            <div
+              style={information.length === 0 ? { visibility: "hidden" } : {}}
+              className={`relative overflow-x-auto  grid grid-cols-2 border-1 gap-4 rounded-xl  bg-white px-4 py-5`}
+            >
+              <div className="w-full flex justify-start items-end gap-x-3 ">
+                <div>
+                  <label className="text-xs">Buscar Producto</label>
+                  <div className="flex gap-x-1 items-center justify-center bg-gray-100 rounded-lg pl-2">
+                    <IoSearch />
+                    <input
+                      type="text"
+                      className="w-22 text-xs font-semibold"
+                      onChange={handleProduct}
+                      placeholder="Ej: APA-15"
+                    />
+                  </div>
                 </div>
               </div>
+
+              {/* <div className=""></div> */}
 
               <table className="col-span-2 w-full text-sm text-left text-gray-500">
                 <thead className="text-2xs text-gray-500">
@@ -176,9 +197,17 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
                   </tr>
                 </thead>
                 <tbody>
-                  {information.map((info: IInventory) => (
-                    <AdminCard info={info} key={info._id} />
-                  ))}
+                  {information
+                    .filter((info) => {
+                      if (searchTerm == "") {
+                        return info;
+                      } else if (info.PRODUCTO.includes(searchTerm)) {
+                        return info;
+                      }
+                    })
+                    .map((info: IInventory) => (
+                      <AdminCard info={info} key={info._id} />
+                    ))}
                 </tbody>
               </table>
             </div>
