@@ -114,14 +114,18 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
               </p>
             </div>
             <div
-              className={`relative overflow-x-auto  grid grid-cols-2 border-1 gap-4 rounded-xl  bg-white shadow-lg px-4 py-5`}
+              className={`relative overflow-x-auto  grid grid-cols-2 border-1 gap-4 rounded-xl  bg-white px-4 py-5`}
             >
-              <div className="flex justify-start items-start ">
-                <div className="text-2xs px-1 rounded-full bg-gray-200 font-black text-purple-700">
-                  {information.length}
-                </div>
-              </div>
-              <div className="flex justify-end items-start gap-x-3 ">
+              <div className="w-full flex justify-start items-start gap-x-3 ">
+                <button
+                  onClick={() => {
+                    deleteAllInventory();
+                    setInformation([]);
+                  }}
+                  className="bg-red-500 p-2 hover:bg-red-400"
+                >
+                  <AiFillDelete size={15} />
+                </button>
                 <div>
                   <label className="buttonExcel">
                     <RiFileExcel2Fill />
@@ -134,16 +138,13 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
                     />
                   </label>
                 </div>
-                <button
-                  onClick={() => {
-                    deleteAllInventory();
-                    setInformation([]);
-                  }}
-                  className="bg-red-500 p-2 hover:bg-red-400"
-                >
-                  <AiFillDelete size={15} />
-                </button>
               </div>
+              <div className="flex justify-end items-start  ">
+                <div className="text-2xs px-1  rounded-full bg-gray-200 font-black text-purple-700">
+                  {information.length}
+                </div>
+              </div>
+
               <table className="col-span-2 w-full text-sm text-left text-gray-500">
                 <thead className="text-2xs text-gray-500">
                   <tr className="border-b font-normal text-xs border-gray-100">

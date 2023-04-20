@@ -24,7 +24,7 @@ button {
 }
 
 button {
-    @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-lg shadow-lg shadow-purple-300 hover:bg-purple-500;
+    @apply bg-purple-600 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-3 rounded-lg  hover:bg-purple-500;
 }
 
 .buttonSubmit {
@@ -32,7 +32,7 @@ button {
 }
 
 .buttonExcel {
-    @apply bg-green-600 cursor-pointer shadow-lg shadow-green-200 text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-2 rounded-lg hover:bg-green-500;
+    @apply bg-green-600 cursor-pointer  text-white text-xs flex justify-center items-center gap-x-1 font-medium px-2 py-2 rounded-lg hover:bg-green-500;
 }
 
 .alertBox {
