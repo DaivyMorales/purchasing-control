@@ -76,7 +76,7 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
       const dataExcel: Array<IData> = xlsx.utils.sheet_to_json(worksheet);
       try {
         const response = await axios.post(
-          "https://purchasing-control-git-testing-deploy-daivymorales-s-team.vercel.app/api/inventory",
+          "https://purchasing-control.vercel.app/api/inventory",
           dataExcel
         );
         setInformation(response.data);
