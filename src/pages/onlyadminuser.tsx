@@ -82,7 +82,7 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
       const dataExcel: Array<IData> = xlsx.utils.sheet_to_json(worksheet);
       try {
         const response = await axios.post(
-          "http://localhost:3001/api/inventory",
+          "http://localhost:3000/api/inventory",
           dataExcel
         );
         setInformation(response.data);

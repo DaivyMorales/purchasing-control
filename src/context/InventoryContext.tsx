@@ -73,7 +73,7 @@ export const InventoryContextProvider = ({
   };
   const deleteAllInventory = async () => {
     try {
-      await axios.delete("http://localhost:3001/api/inventory");
+      await axios.delete("http://localhost:3000/api/inventory");
       setInventories([]);
     } catch (error) {
       console.log(error);
