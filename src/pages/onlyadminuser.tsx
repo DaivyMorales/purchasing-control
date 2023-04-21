@@ -82,7 +82,7 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
       const dataExcel: Array<IData> = xlsx.utils.sheet_to_json(worksheet);
       try {
         const response = await axios.post(
-          "https://purchasing-control.vercel.app/api/inventory",
+          "http://localhost:3001/api/inventory",
           dataExcel
         );
         setInformation(response.data);
@@ -219,14 +219,10 @@ export default function onlyadminuser({ data1, data2 }: MyProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const res1 = await fetch(
-    "https://purchasing-control.vercel.app/api/inventory"
-  );
+  const res1 = await fetch("http://localhost:3000/api/inventory");
   const data1 = await res1.json();
 
-  const res2 = await fetch(
-    "https://purchasing-control.vercel.app/api/products"
-  );
+  const res2 = await fetch("http://localhost:3000/api/products");
   const data2 = await res2.json();
 
   return {
