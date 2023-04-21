@@ -94,6 +94,27 @@ body {
     }
 }
 
+.inputCount {
+    @apply bg-gray-100 text-xs w-20;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    // Estilos específicos para webkit
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    // Estilos específicos para Firefox
+    &::-moz-number-spin-box {
+        -moz-appearance: textfield;
+    }
+}
+
 .inputNombre {
     @apply bg-gray-100 text-xs w-56;
 

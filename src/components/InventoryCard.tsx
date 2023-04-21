@@ -88,7 +88,7 @@ export default function InventoryCard({ info }: EntryCardProps) {
             <input
               name="counter.CANTIDAD_CONTADA"
               type="number"
-              className="inputEdit"
+              className="inputCount"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               value={
